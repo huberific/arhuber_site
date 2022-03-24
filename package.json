@@ -1,0 +1,19 @@
+{
+  "name": "arhuber_site",
+  "version": "1.0.0",
+  "description": "arhuber.dev site",
+  "main": "y",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huberific/arhuber_site.git"
+  },
+  "author": "Aaron Huber",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/huberific/arhuber_site/issues"
+  },
+  "homepage": "https://github.com/huberific/arhuber_site#readme"
+}
