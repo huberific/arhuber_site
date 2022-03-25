@@ -1,0 +1,519 @@
+<link rel="stylesheet" href="/css/habitTracker.css">
+
+<div class="container page">
+    <div class="container title d-flex justify-content-center scale-message-container mt-4">
+        <svg width="100%" height="100%">
+            <text>
+                <tspan id="trackerTitle" class="trackerTitle" x="50%" y="50%"
+                       text-anchor="middle"
+                       dominant-baseline="middle"
+                >
+                </tspan>
+            </text>
+        </svg>
+    </div>
+    <div class="container scale-tracker-container d-flex justify-content-center">
+
+        <svg viewBox="0 0 600 600" class="scaling-svg"
+             xmlns="http://www.w3.org/2000/svg">
+
+            <path class="path" id="circle1"
+                  d="M30,300 a270,270 0 1,0 270,-270 L 30 30"
+                  stroke="black" stroke-width="2" fill="transparent"/>
+
+            <path class="path" id="circle2"
+                  d="M70,300a 230,230 0 1,0 230,-230 L 40 70"
+                  stroke="black" stroke-width="2" fill="transparent"/>
+
+            <path class="path" id="circle3"
+                  d="M110,300 a190,190 0 1,0 190,-190 L 50 110"
+                  stroke="black" stroke-width="2" fill="transparent"/>
+
+            <path class="path" id="circle4"
+                  d="M150,300 a150,150 0 1,0 150,-150 L 60 150"
+                  stroke="black" stroke-width="2" fill="transparent"/>
+
+            <text>
+                <tspan id="year" class="fadeInEffects" x="300" y="328"
+                       text-anchor="middle"></tspan>
+            </text>
+
+            <text>
+                <tspan id="month" class="fadeInEffects" x="300" y="310"
+                       text-anchor="middle"></tspan>
+            </text>
+
+            <rect id="date_selector_area" x="190" y="260"
+                  width="220" height="80" fill="transparent"></rect>
+
+            <text>
+            <tspan id="habit1" class="fadeInEffects" x="175" y="50"
+                  text-anchor="middle"
+                  dominant-baseline="middle">
+            </tspan>
+            </text>
+
+            <rect id="habit1_selector_area" x="30" y="30" width="270"
+                  height="40" fill="transparent"></rect>
+
+            <text>
+            <tspan id="habit2" class="fadeInEffects" x="175" y="90"
+                  text-anchor="middle"
+                  dominant-baseline="middle">
+            </tspan>
+            </text>
+
+            <rect id="habit2_selector_area" x="40" y="70" width="260"
+                  height="40" fill="transparent"></rect>
+
+            <text>
+            <tspan id="habit3" class="fadeInEffects" x="175" y="130"
+                  text-anchor="middle"
+                  dominant-baseline="middle">
+            </tspan>
+
+            </text>
+            <rect id="habit3_selector_area" x="50" y="110" width="250"
+                  height="40" fill="transparent"></rect>
+
+            <!--information icon-->
+            <path class="icon_light" id="info_icon_light"
+                  d="M13.25 7c0 .69-.56 1.25-1.25 1.25s-1.25-.56-1.25-1.25.56-1.25 1.25-1.25 1.25.56 1.25 1.25zm10.75 5c0 6.627-5.373 12-12 12s-12-5.373-12-12 5.373-12 12-12 12 5.373 12 12zm-2 0c0-5.514-4.486-10-10-10s-10 4.486-10 10 4.486 10 10 10 10-4.486 10-10zm-13-2v2h2v6h2v-8h-4z"
+                  transform="translate(545, 0)"/>
+            <path class="icon_dark" id="info_icon_dark"
+                  d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm1 18h-2v-6h-2v-2h4v8zm-1-9.75c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"
+                  transform="translate(545, 0)"/>
+            <rect id="info_selector_area" x="545" width="24" height="24"
+                  fill="transparent"></rect>
+            <!--settings icon-->
+            <path class="icon_light" id="settings_icon_light"
+                  d="M24 14.187v-4.374c-2.148-.766-2.726-.802-3.027-1.529-.303-.729.083-1.169 1.059-3.223l-3.093-3.093c-2.026.963-2.488 1.364-3.224 1.059-.727-.302-.768-.889-1.527-3.027h-4.375c-.764 2.144-.8 2.725-1.529 3.027-.752.313-1.203-.1-3.223-1.059l-3.093 3.093c.977 2.055 1.362 2.493 1.059 3.224-.302.727-.881.764-3.027 1.528v4.375c2.139.76 2.725.8 3.027 1.528.304.734-.081 1.167-1.059 3.223l3.093 3.093c1.999-.95 2.47-1.373 3.223-1.059.728.302.764.88 1.529 3.027h4.374c.758-2.131.799-2.723 1.537-3.031.745-.308 1.186.099 3.215 1.062l3.093-3.093c-.975-2.05-1.362-2.492-1.059-3.223.3-.726.88-.763 3.027-1.528zm-4.875.764c-.577 1.394-.068 2.458.488 3.578l-1.084 1.084c-1.093-.543-2.161-1.076-3.573-.49-1.396.581-1.79 1.693-2.188 2.877h-1.534c-.398-1.185-.791-2.297-2.183-2.875-1.419-.588-2.507-.045-3.579.488l-1.083-1.084c.557-1.118 1.066-2.18.487-3.58-.579-1.391-1.691-1.784-2.876-2.182v-1.533c1.185-.398 2.297-.791 2.875-2.184.578-1.394.068-2.459-.488-3.579l1.084-1.084c1.082.538 2.162 1.077 3.58.488 1.392-.577 1.785-1.69 2.183-2.875h1.534c.398 1.185.792 2.297 2.184 2.875 1.419.588 2.506.045 3.579-.488l1.084 1.084c-.556 1.121-1.065 2.187-.488 3.58.577 1.391 1.689 1.784 2.875 2.183v1.534c-1.188.398-2.302.791-2.877 2.183zm-7.125-5.951c1.654 0 3 1.346 3 3s-1.346 3-3 3-3-1.346-3-3 1.346-3 3-3zm0-2c-2.762 0-5 2.238-5 5s2.238 5 5 5 5-2.238 5-5-2.238-5-5-5z"
+                  transform="translate(575, 0)"/>
+            <path class="icon_dark" id="settings_icon_dark"
+                  d="M24 13.616v-3.232c-1.651-.587-2.694-.752-3.219-2.019v-.001c-.527-1.271.1-2.134.847-3.707l-2.285-2.285c-1.561.742-2.433 1.375-3.707.847h-.001c-1.269-.526-1.435-1.576-2.019-3.219h-3.232c-.582 1.635-.749 2.692-2.019 3.219h-.001c-1.271.528-2.132-.098-3.707-.847l-2.285 2.285c.745 1.568 1.375 2.434.847 3.707-.527 1.271-1.584 1.438-3.219 2.02v3.232c1.632.58 2.692.749 3.219 2.019.53 1.282-.114 2.166-.847 3.707l2.285 2.286c1.562-.743 2.434-1.375 3.707-.847h.001c1.27.526 1.436 1.579 2.019 3.219h3.232c.582-1.636.75-2.69 2.027-3.222h.001c1.262-.524 2.12.101 3.698.851l2.285-2.286c-.744-1.563-1.375-2.433-.848-3.706.527-1.271 1.588-1.44 3.221-2.021zm-12 2.384c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4z"
+                  transform="translate(575, 0)"/>
+            <rect id="settings_selector_area" x="575" width="24" height="24"
+                  fill="transparent"></rect>
+
+        </svg>
+
+    </div>
+
+    <div class="container justify-content-center mt-2 mb-1 scale-message-container">
+        <center id="quote" class="message fadeInEffects"></center>
+        <center id="author" class="message fadeInEffects"></center>
+    </div>
+</div>
+
+<div class="modal fade" id="habit1Modal" tabindex="-1"
+     aria-labelledby="habitModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Habit 1</h5>
+                <button type="button" class="btn-close shadow-none"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="habit-name" class="col-form-label">Enter or
+                            update your habit:</label>
+                        <input type="text" class="form-control" id="habit1Name"
+                               maxlength="35"
+                               onkeydown="return (event.keyCode!==13);">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Close
+                </button>
+                <button type="button" class="btn btn-warning"
+                        id="habit1BtnDelete" data-bs-target="#habit1ModalCheck"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Delete
+                    Habit
+                </button>
+                <button type="button" class="btn btn-primary" id="habit1BtnSave"
+                        data-bs-dismiss="modal">Save
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="habit1ModalCheck" tabindex="-1"
+     aria-labelledby="habitModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Delete Habit 1
+                    Data?</h5>
+                <button type="button" class="btn-close shadow-none"
+                        data-bs-target="#habit1Modal" data-bs-toggle="modal"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <p>The habit data will be lost forever.</p>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                        data-bs-target="#habit1Modal" data-bs-toggle="modal"
+                        data-bs-dismiss="modal">Cancel
+                </button>
+                <button type="button" class="btn btn-primary"
+                        id="habit1BtnDeleteChecked" data-bs-dismiss="modal">Yes,
+                    delete it
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="habit2Modal" tabindex="-1"
+     aria-labelledby="habitModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Habit 2</h5>
+                <button type="button" class="btn-close shadow-none"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="habit-name" class="col-form-label">Enter or
+                            update your habit:</label>
+                        <input type="text" class="form-control" id="habit2Name"
+                               maxlength="35"
+                               onkeydown="return (event.keyCode!==13);">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Close
+                </button>
+                <button type="button" class="btn btn-warning"
+                        id="habit2BtnDelete" data-bs-target="#habit2ModalCheck"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Delete
+                    Habit
+                </button>
+                <button type="button" class="btn btn-primary" id="habit2BtnSave"
+                        data-bs-dismiss="modal">Save
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="habit2ModalCheck" tabindex="-1"
+     aria-labelledby="habitModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Delete Habit 2
+                    Data?</h5>
+                <button type="button" class="btn-close shadow-none"
+                        data-bs-target="#habit2Modal" data-bs-toggle="modal"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <span>The habit data will be lost forever.</span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                        data-bs-target="#habit2Modal" data-bs-toggle="modal"
+                        data-bs-dismiss="modal">Cancel
+                </button>
+                <button type="button" class="btn btn-primary"
+                        id="habit2BtnDeleteChecked" data-bs-dismiss="modal">Yes,
+                    delete it
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="habit3Modal" tabindex="-1"
+     aria-labelledby="habitModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Habit 3</h5>
+                <button type="button" class="btn-close shadow-none"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="habit-name" class="col-form-label">Enter or
+                            update your habit:</label>
+                        <input type="text" class="form-control" id="habit3Name"
+                               maxlength="35"
+                               onkeydown="return (event.keyCode!==13);">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Close
+                </button>
+                <button type="button" class="btn btn-warning"
+                        id="habit3BtnDelete" data-bs-target="#habit3ModalCheck"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Delete
+                    Habit
+                </button>
+                <button type="button" class="btn btn-primary" id="habit3BtnSave"
+                        data-bs-dismiss="modal">Save
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="habit3ModalCheck" tabindex="-1"
+     aria-labelledby="habitModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Delete Habit 3
+                    Data?</h5>
+                <button type="button" class="btn-close shadow-none"
+                        data-bs-target="#habit3Modal" data-bs-toggle="modal"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <span>The habit data will be lost forever.</span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                        data-bs-target="#habit3Modal" data-bs-toggle="modal"
+                        data-bs-dismiss="modal">Cancel
+                </button>
+                <button type="button" class="btn btn-primary"
+                        id="habit3BtnDeleteChecked" data-bs-dismiss="modal">Yes,
+                    delete it
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="dateModal" tabindex="-1" aria-labelledby="dateModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Date</h5>
+                <button type="button" class="btn-close shadow-none"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <select class="form-select" id="monthSelector"
+                                aria-label="Default select example">
+                            <option selected>Select a month...</option>
+                            <option value="January">January</option>
+                            <option value="February">February</option>
+                            <option value="March">March</option>
+                            <option value="April">April</option>
+                            <option value="May">May</option>
+                            <option value="June">June</option>
+                            <option value="July">July</option>
+                            <option value="August">August</option>
+                            <option value="September">September</option>
+                            <option value="October">October</option>
+                            <option value="November">November</option>
+                            <option value="December">December</option>
+                        </select>
+                        <br>
+                        <select class="form-select" id="yearSelector"
+                                aria-label="Default select example">
+                            <option selected>Select a year...</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Close
+                </button>
+                <button type="button" class="btn btn-warning" id="dateBtnSave"
+                        data-bs-dismiss="modal">Save
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="infoModal" tabindex="-1"
+     aria-labelledby="infoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Instructions</h5>
+                <button type="button" class="btn-close shadow-none"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <h6>About</h6>
+                        <p>Did you know it can take about 18 days to form a
+                            habit? This application is meant to help motivate
+                            you to continue on your path to solidify positive
+                            habit behaviors! Enter the habit you'd like to track
+                            for the month and place a marker on each day that
+                            you accomplish your task.
+                        <p>
+                        <h6>How to Add/Update Habit Name</h6>
+                        <p>Click on the habit name in the upper left region of
+                            the tracker. An input field appear to edit/add the
+                            habit name.</p>
+                        <h6>How to Add/Update Habit Data</h6>
+                        <p>Click with an open cell on the habit tracker to mark
+                            it with a circle. If a mistake is made, click the
+                            cell again to remove the circle.</p>
+                        <h6>How to Change the Date</h6>
+                        <p>Click on the date region in the center of the
+                            tracker. A dropdown menu will appear to edit the
+                            habit name.</p>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="settingsModal" tabindex="-1"
+     aria-labelledby="settingsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Settings</h5>
+                <button type="button" class="btn-close shadow-none"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <p>Choose a color theme from the options below:</p>
+                    <br>
+                    <svg viewBox="0 0 300 240" class="scaling-svg"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <rect id="theme1_background" x="60" y="0" width="180"
+                              height="36" fill="transparent" rx="15"></rect>
+                        <circle id="theme1_light" cx="100" cy="18" r="12"
+                                fill="#FFD54F"></circle>
+                        <circle id="theme1_med" cx="150" cy="18" r="12"
+                                fill="#FFB300"></circle>
+                        <circle id="theme1_dark" cx="200" cy="18" r="12"
+                                fill="#FF6F00"></circle>
+                        <rect id="theme1_selector_area" x="60" y="0" width="180"
+                              height="36" fill="transparent" rx="15"></rect>
+                        <path class="theme_divider" d="M 60 37 L 240 37"
+                              stroke="#EEEEEE"></path>
+
+                        <rect id="theme2_background" x="60" y="38" width="180"
+                              height="36" fill="transparent" rx="15"></rect>
+                        <circle id="theme2_light" cx="100" cy="56" r="12"
+                                fill="#F06292"></circle>
+                        <circle id="theme2_med" cx="150" cy="56" r="12"
+                                fill="#D81B60"></circle>
+                        <circle id="theme2_dark" cx="200" cy="56" r="12"
+                                fill="#880E4F"></circle>
+                        <rect id="theme2_selector_area" x="60" y="38"
+                              width="180" height="36" fill="transparent"
+                              rx="15"></rect>
+                        <path class="theme_divider" d="M 60 75 L 240 75"
+                              stroke="#EEEEEE"></path>
+
+                        <rect id="theme3_background" x="60" y="76" width="180"
+                              height="36" fill="transparent" rx="15"></rect>
+                        <circle id="theme3_light" cx="100" cy="94" r="12"
+                                fill="#BA68C8"></circle>
+                        <circle id="theme3_med" cx="150" cy="94" r="12"
+                                fill="#8E24AA"></circle>
+                        <circle id="theme3_dark" cx="200" cy="94" r="12"
+                                fill="#4A148C"></circle>
+                        <rect id="theme3_selector_area" x="60" y="76"
+                              width="180" height="36" fill="transparent"
+                              rx="15"></rect>
+                        <path class="theme_divider" d="M 60 113 L 240 113"
+                              stroke="#EEEEEE"></path>
+
+                        <rect id="theme4_background" x="60" y="114" width="180"
+                              height="36" fill="transparent" rx="15"></rect>
+                        <circle id="theme4_light" cx="100" cy="132" r="12"
+                                fill="#64B5F6"></circle>
+                        <circle id="theme4_med" cx="150" cy="132" r="12"
+                                fill="#1E88E5"></circle>
+                        <circle id="theme4_dark" cx="200" cy="132" r="12"
+                                fill="#0D47A1"></circle>
+                        <rect id="theme4_selector_area" x="60" y="114"
+                              width="180" height="36" fill="transparent"
+                              rx="15"></rect>
+                        <path class="theme_divider" d="M 60 151 L 240 151"
+                              stroke="#EEEEEE"></path>
+
+                        <rect id="theme5_background" x="60" y="152" width="180"
+                              height="36" fill="#E0F2F1" rx="15"></rect>
+                        <circle id="theme5_light" cx="100" cy="170" r="12"
+                                fill="#4DD0E1"></circle>
+                        <circle id="theme5_med" cx="150" cy="170" r="12"
+                                fill="#00ACC1"></circle>
+                        <circle id="theme5_dark" cx="200" cy="170" r="12"
+                                fill="#006064"></circle>
+                        <rect id="theme5_selector_area" x="60" y="152"
+                              width="180" height="36" fill="transparent"
+                              rx="15"></rect>
+                        <path class="theme_divider" d="M 60 189 L 240 189"
+                              stroke="#EEEEEE"></path>
+
+                        <rect id="theme6_background" x="60" y="190" width="180"
+                              height="36" fill="transparent" rx="15"></rect>
+                        <circle id="theme6_light" cx="100" cy="208" r="12"
+                                fill="#AED581"></circle>
+                        <circle id="theme6_med" cx="150" cy="208" r="12"
+                                fill="#7CB342"></circle>
+                        <circle id="theme6_dark" cx="200" cy="208" r="12"
+                                fill="#33691E"></circle>
+                        <rect id="theme6_selector_area" x="60" y="190"
+                              width="180" height="36" fill="transparent"
+                              rx="15"></rect>
+                    </svg>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/habitTracker.bundle.js"></script>

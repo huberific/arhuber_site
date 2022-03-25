@@ -4,6 +4,8 @@
   "description": "arhuber.dev site",
   "main": "y",
   "scripts": {
+    "start": "node index.js",
+    "build": "webpack --mode=development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +17,19 @@
   "bugs": {
     "url": "https://github.com/huberific/arhuber_site/issues"
   },
-  "homepage": "https://github.com/huberific/arhuber_site#readme"
+  "homepage": "https://github.com/huberific/arhuber_site#readme",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.1.1",
+    "express": "^4.17.3",
+    "express-handlebars": "^6.0.3",
+    "firebase": "^9.6.10",
+    "handlebars-loader": "^1.7.1",
+    "http": "^0.0.1-security",
+    "https": "^1.0.0",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "webpack": "^5.70.0",
+    "webpack-cli": "^4.9.2"
+  }
 }

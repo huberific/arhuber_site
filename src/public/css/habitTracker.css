@@ -1,0 +1,261 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Monoton&family=Sniglet&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Do+Hyeon&family=Monoton&family=Sniglet&display=swap');
+
+:root {
+  --hash-color: #424242;
+  --tracker-path-color: #212121;
+  --default-text-color: #212121;
+  --add-new-text-color: #BDBDBD;
+  --habit1-dot-color: gold;
+  --habit2-dot-color: orange;
+  --habit3-dot-color: peru;
+
+  --theme-color-50: #FFF8E1;
+  --theme-color-100: #FFECB3;
+  --theme-color-200: #FFD54F;
+  --theme-color-400: #FFCA28;
+  --theme-color-600: #FFB300;
+  --theme-color-800: #FF8F00;
+  --theme-color-900: #FF6F00;
+
+  --hash-mark-delay: 3.5s;
+  --day-text-delay: 3.5s;
+  --day-pulse-delay: 4s;
+  --fade-in-effects-delay: 5s;
+}
+
+.btn {
+  outline: none;
+  border: none;
+}
+
+*:focus, *:active {
+  border-color: var(--theme-color-600) !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.btn-primary, .btn-primary:active, .btn-primary:visited {
+  background-color: var(--theme-color-800) !important;
+}
+
+.btn-primary:hover {
+  background-color: var(--theme-color-900) !important;
+}
+
+.btn-warning,.btn-warning:active, .btn-warning:visited {
+  background-color: var(--theme-color-200) !important;
+}
+
+.btn-warning:hover {
+  background-color: var(--theme-color-400) !important;
+}
+
+.habit1Color {
+  fill: var(--theme-color-200);
+}
+
+.habit2Color {
+  fill: var(--theme-color-600);
+}
+
+.habit3Color {
+  fill: var(--theme-color-900);
+}
+
+.modal-title {
+  color: var(--theme-color-900);
+}
+
+h6 {
+  color: var(--theme-color-800);
+}
+
+.addNewTextColor {
+  fill: var(--theme-color-100);
+}
+
+.habitTextColor {
+  fill: var(--theme-color-900);
+}
+
+.defaultText {
+  fill: var(--default-text-color);
+}
+
+#month {
+  font-size: 40px;
+  fill-opacity: 0;
+  fill: var(--theme-color-800);
+  font-family: "Do Hyeon", serif;
+}
+
+#year {
+  font-size: 90px;
+  fill-opacity: 0;
+  fill: var(--theme-color-100);
+  font-family: "Do Hyeon", serif;
+}
+
+.icon_light {
+  opacity: 1;
+}
+
+.icon_dark {
+  opacity: 0;
+  fill: var(--theme-color-600);
+}
+
+.trackerTitle {
+  font-family: "Do Hyeon", serif;
+  font-size: min(5vh, 5vw);
+}
+
+text {
+  font-family: "Do Hyeon", serif;
+}
+
+tspan {
+  font-family: "Do Hyeon", serif;
+}
+
+.modal {
+  font-family: "Do Hyeon", serif;
+}
+
+.message {
+  font-family: "Do Hyeon", serif;
+  font-size: min(1.8vh, 1.8vw);
+  word-break: normal;
+}
+
+.container.scaling-svg-container {
+  /*background: yellow;*/
+}
+
+.scale-tracker-container{
+  height: min(75vh, 75vw);
+  width: min(75vh, 75vw);
+}
+
+.scale-message-container{
+  height: min(5vh, 5vw);
+  width: min(75vh, 75vw);
+}
+
+.path {
+  stroke-dasharray: 2000;
+  animation: dashCircle 3s ease-in forwards;
+  animation-delay: 1s;
+  opacity: 0;
+}
+
+@keyframes dashCircle {
+  from {
+    opacity: 1;
+    stroke-dashoffset: 2000;
+  }
+  to {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}
+
+.hashMark {
+  opacity: 0;
+  stroke-dasharray: 2000;
+  animation: dashMarks 3s ease forwards;
+  animation-delay: calc(var(--hash-mark-delay) + (var(--order) * 50ms));
+}
+
+.lightHashMark {
+  stroke-width: 1px;
+  stroke: var(--hash-color);
+}
+
+.darkHashMark {
+  stroke-width: 2px;
+  stroke: var(--tracker-path-color);
+}
+
+@keyframes dashMarks {
+  from {
+    opacity: 1;
+    stroke-dashoffset: 2000;
+  }
+  to {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}
+
+.dayText {
+  fill-opacity: 0;
+  text-anchor: middle;
+  /*alignment-baseline: middle;*/
+  dominant-baseline: middle;
+  animation: fadeIn 2s ease forwards;
+  animation-delay: calc(var(--day-text-delay) + (var(--order) * 50ms));
+}
+
+.fadeInEffects {
+  fill-opacity: 0;
+  animation: fadeIn 2s ease forwards;
+  animation-delay: var(--fade-in-effects-delay);
+}
+
+#dayPulse {
+  animation: dayPulse 2s infinite;
+  animation-delay: calc(var(--day-pulse-delay) + (var(--order) * 50ms));
+}
+
+@keyframes dayPulse {
+  0% {
+    fill-opacity: 1;
+  }
+  50% {
+    fill-opacity: 0;
+  }
+  100% {
+    fill-opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    fill-opacity: 0;
+  }
+  to {
+    fill-opacity: 1;
+  }
+}
+
+.dot {
+  opacity: 0;
+  cursor: pointer;
+}
+
+.dotClicked {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.dotClicked.fadeInEffects {
+  opacity: 0;
+  cursor: pointer;
+  animation: fadeIn 2s ease forwards;
+  animation-delay: var(--fade-in-effects-delay);
+}
+
+.dot:hover {
+  animation: slightFadeIn 0.5s ease forwards;
+}
+
+@keyframes slightFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.35;
+  }
+}
