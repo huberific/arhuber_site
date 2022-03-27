@@ -105,3 +105,9 @@ dist
 
 # ignore dist files:
 dist/
+
+# ignore jetbrains files:
+.idea
+
+# ignore firebase config:
+src/public/js/firebaseConfig.js

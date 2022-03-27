@@ -29,7 +29,7 @@
   border: none;
 }
 
-*:focus, *:active {
+input:focus, input:active {
   border-color: var(--theme-color-600) !important;
   box-shadow: none !important;
   outline: none !important;
@@ -231,17 +231,17 @@ tspan {
 }
 
 .dot {
-  opacity: 0;
+  fill-opacity: 0;
   cursor: pointer;
 }
 
 .dotClicked {
-  opacity: 1;
+  fill-opacity: 1;
   cursor: pointer;
 }
 
 .dotClicked.fadeInEffects {
-  opacity: 0;
+  fill-opacity: 0;
   cursor: pointer;
   animation: fadeIn 2s ease forwards;
   animation-delay: var(--fade-in-effects-delay);
@@ -253,9 +253,9 @@ tspan {
 
 @keyframes slightFadeIn {
   0% {
-    opacity: 0;
+    fillopacity: 0;
   }
   100% {
-    opacity: 0.35;
+    fill-opacity: 0.35;
   }
 }

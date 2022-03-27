@@ -1,9 +1,12 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore/lite';
+import { getAnalytics } from 'firebase/analytics';
+import { getDatabase, ref, get, set, update, child, onValue } from 'firebase/database';
 import { firebaseConfig } from "./firebaseConfig";
 
 const firebaseApp = initializeApp(firebaseConfig);
-const db = getFirestore(firebaseApp);
+const analytics = getAnalytics(firebaseApp);
+const database = getDatabase(firebaseApp);
+let databaseData = {};
 
 const CURRENT_DATE = new Date();
 const CURRENT_MONTH = CURRENT_DATE.getMonth(); // gives 0:11
@@ -81,8 +84,6 @@ const HABIT_1_RADIUS = 12;
 const HABIT_2_RADIUS = 10;
 const HABIT_3_RADIUS = 8;
 
-// const BACKEND_API_URL = "http://localhost:8080/api/habits/";
-const BACKEND_API_URL = "https://habit-tracker-api-dot-arhuber.wl.r.appspot.com/api/habits/";
 const MOTIVATIONAL_MESSAGE_URL = "http://localhost:3001/motivation";
 const MOTIVATIONAL_DELAY = 20 * 1000; // milliseconds
 
@@ -95,15 +96,15 @@ let firstAppInitialization = true;
 loadApp();
 
 function loadApp() {
-    setTrackerTitle();
     setDateOnTracker(CURRENT_YEAR, getMonthName(CURRENT_MONTH));
     placeDayText();
     placeAllDots();
     placeHashMarks();
     setDateModalListener();
     setHabitDeleteModalListeners();
-    getHabitTrackerDataFromDatabase(CURRENT_YEAR, getMonthName(CURRENT_MONTH));
     setDotClickListener();
+    getAllFirebaseData();
+    setListenEventForFirebase();
     setDateSelectorProperties();
     setHabitHoverAndClickEvents();
     setInfoIconProperties();
@@ -114,9 +115,73 @@ function loadApp() {
     setColorThemeHoverEvents();
 }
 
-function setTrackerTitle() {
-    document.getElementById("trackerTitle").textContent = "Habit Tracker";
+function setListenEventForFirebase() {
+    const dbRef = ref(database, 'habitData/');
+    onValue(dbRef, (snapshot) => {
+        databaseData = snapshot.val();
+    });
 }
+
+function getAllFirebaseData() {
+    const dbRef = ref(database);
+    get(child(dbRef, `habitData/`))
+        .then((snapshot) => {
+            if (snapshot.exists()) {
+                databaseData = snapshot.val();
+                loadHabitTrackerDataFromFirebase(CURRENT_YEAR, getMonthName(CURRENT_MONTH));
+            } else {
+                console.log("No data available");
+            }})
+        .catch((error) => {
+            console.error(error);
+        });
+}
+
+function writeUserData(userId, name, email, imageUrl) {
+    const db = getDatabase();
+    set(ref(db, 'users/' + userId), {
+        username: name,
+        email: email,
+        profile_picture : imageUrl
+    });
+}
+
+function updateFirebaseHabitName(habit, habitName) {
+    const selectedYear = document.getElementById("year").textContent;
+    const selectedMonth = document.getElementById("month").textContent;
+    const basePath = '/habitData/' + selectedYear + '/' + selectedMonth + '/';
+
+    const updates = {};
+    if (habitName !== null && habit !== null) {
+        updates[basePath + '/' + habit + '/' + 'name'] = habitName;
+        return update(ref(database), updates);
+    }
+}
+
+function updateFirebaseDotData(dotElm) {
+    const selectedYear = document.getElementById("year").textContent;
+    const selectedMonth = document.getElementById("month").textContent;
+    const basePath = '/habitData/' + selectedYear + '/' + selectedMonth + '/';
+
+    const updates = {};
+    if (dotElm !== null && dotElm !== undefined) {
+        let dotData = getDotHabitAndDayInfo(dotElm);
+        let clicked = false;
+        if (dotElm.classList.contains("dotClicked"))
+            clicked = true;
+        let dayNode = "day" + dotData["day"];
+        updates[basePath + dotData["habit"] + '/' + dayNode] = clicked;
+        return update(ref(database), updates);
+    }
+}
+
+function writeHabitNameToFirebase(habitNum, habitName) {
+    console.log(path);
+    set(ref(database, path), {
+        name: habitName,
+    });
+}
+
 
 function setDateOnTracker(year, month) {
     let monthText = document.getElementById("month");
@@ -132,7 +197,7 @@ function setDotClickListener() {
         function (event) {
             if (!event.target.closest("circle")) return;
             toggleVisibility(event.target);
-            getDotDayAndHabitInfo(event.target);
+            updateFirebaseDotData(event.target);
         },
         false
     );
@@ -197,8 +262,8 @@ function setDateModalListener() {
         // protect against incorrect entry and reset:
         if (monthSelected === "Select a month..." ||
             yearSelected === "Select a year...") {
-            monthSelected = "Select a month...";
-            yearSelected = "Select a year...";
+            monthSelected.value = "Select a month...";
+            yearSelected.value = "Select a year...";
             return;
         }
 
@@ -210,7 +275,7 @@ function setDateModalListener() {
         placeAllDots();
         placeHashMarks();
         placeDayText();
-        getHabitTrackerDataFromDatabase(yearSelected, monthSelected);
+        loadHabitTrackerDataFromFirebase(yearSelected, monthSelected);
 
     }, false);
 }
@@ -418,7 +483,6 @@ function placeAllDots() {
 }
 
 function setHabitHoverAndClickEvents() {
-
     for (let i = 1; i <= NUM_HABITS; i++) {
 
         let habitSelectorArea = document.getElementById("habit" + i + "_selector_area");
@@ -444,55 +508,26 @@ function setHabitHoverAndClickEvents() {
             });
             myModal.show();
         }, false);
-
     }
-
 }
 
-function getDotDayAndHabitInfo(circle) {
-    let habitPostObj = getHabitIdAndNameFromDotRadius(circle.r.baseVal.value);
+function getDotHabitAndDayInfo(circle) {
     let dotData = circle.id.split("_");
-    habitPostObj.day = parseInt(dotData[0]);
-    updateDotDetailsToDatabase(habitPostObj);
+    let habitDesc = "habit1";
+    if (parseInt(dotData[1]) === HABIT_2_RADIUS)
+        habitDesc = "habit2";
+    if (parseInt(dotData[1]) === HABIT_3_RADIUS)
+        habitDesc = "habit3";
+    return new Object({
+        habit: habitDesc,
+        day: dotData[0]
+    });
 }
 
-function getHabitIdAndNameFromDotRadius(radius) {
-    let habitName = "";
-    let habitNum = 0;
+function loadHabitTrackerDataFromFirebase(year, month) {
 
-    if (radius === HABIT_1_RADIUS)
-        habitNum = 1;
-    else if (radius === HABIT_2_RADIUS)
-        habitNum = 2;
-    else if (radius === HABIT_3_RADIUS)
-        habitNum = 3;
-
-    habitName = document.getElementById("habit" + habitNum).textContent;
-
-    if (habitName.includes('\n'))
-        habitName = habitName.substring(0, habitName.indexOf('\n'))
-
-    return new Object({habitNum: habitNum, name: habitName});
-}
-
-function getHabitTrackerDataFromDatabase(year, month) {
-    const URL = BACKEND_API_URL + year + '/' + month.trim();
-
-    fetch(URL)
-        .then(response => response.json())
-        .then(data => {
-            loadHabitTrackerDataFromDatabase(data);
-        })
-        .catch(error => {
-            console.log("No data captured for this month and year.");
-            console.error(error);
-        });
-}
-
-function loadHabitTrackerDataFromDatabase(data) {
-
-    if (data.length === 0) {
-        postNewEmptyHabits();
+    if (Object.keys(databaseData).length === 0) {
+        console.log("database data is empty");
         return;
     }
 
@@ -500,27 +535,29 @@ function loadHabitTrackerDataFromDatabase(data) {
 
     let colorTheme = getCurrentColorTheme();
 
-    for (let i = 0; i < data.length; i++) {
+    for (const habit in databaseData[year][month]) {
         let radius = undefined;
 
-        if (data[i].habitNum === '1')
+        let habitData = databaseData[year][month][habit];
+
+        if (habit === "habit1")
             radius = HABIT_1_RADIUS;
-        else if (data[i].habitNum === '2')
+        else if (habit === "habit2")
             radius = HABIT_2_RADIUS;
-        else if (data[i].habitNum === '3')
+        else if (habit === "habit3")
             radius = HABIT_3_RADIUS;
 
-        let habit = document.getElementById("habit" + data[i].habitNum);
+        let habitText = document.getElementById(habit);
 
-        habit.textContent = data[i].name;
+        habitText.textContent = habitData["name"];
 
-        if (habit.textContent === undefined) {
+        if (habitText.textContent === undefined) {
             habitText.textContent = '';
         }
-        if (habit.textContent === 'add new')
-            habit.style.fill = colorTheme.color100;
+        if (habitText.textContent === 'add new')
+            habitText.style.fill = colorTheme.color100;
         else
-            habit.style.fill = colorTheme.defaultText;
+            habitText.style.fill = colorTheme.defaultText;
 
         // cycle through dot data to ensure they are clicked:
         for (let j = 1; j < 32; j++) {
@@ -530,13 +567,13 @@ function loadHabitTrackerDataFromDatabase(data) {
             if (dotElm === null)
                 break;
 
-            if (data[i][dayNum] === true) {
+            if (habitData[dayNum]) {
                 dotElm.classList.remove("dot");
                 dotElm.classList.add("dotClicked");
+                dotElm.classList.add("fadeInEffects");
                 if(!firstAppInitialization)
                     document.documentElement.style.setProperty("--fade-in-effects-delay", "2s");
-                dotElm.classList.add("fadeInEffects");
-            } else if (data[i][dayNum] === false) {
+            } else if (!habitData[dayNum]) {
                 dotElm.classList.add("dot");
                 dotElm.classList.remove("dotClicked");
             }
@@ -557,10 +594,6 @@ function toggleVisibility(target) {
     }
 }
 
-function updateDotDetailsToDatabase(dotObject) {
-    updateHabitDetailsToDatabase(dotObject.habitNum, null, dotObject.day);
-}
-
 function setModalTexts() {
     for (let i = 1; i < NUM_HABITS + 1; i++) {
         let habitModalText = document.getElementById("habit" + i + "Name");
@@ -572,32 +605,9 @@ function setModalTexts() {
             if (habitSvgText.textContent !== 'add new'){
                 habitSvgText.style.fill = getCurrentColorTheme().defaultText;
             }
-            updateHabitDetailsToDatabase(i, habitModalText.value, null);
+            updateFirebaseHabitName("habit" + i, habitModalText.value);
         });
     }
-}
-
-function updateHabitDetailsToDatabase(habitNum, habitText, day) {
-    const year = document.getElementById("year").textContent;
-    const month = document.getElementById("month").textContent;
-    const URL = BACKEND_API_URL + 'update';
-    const formData = new FormData();
-    formData.append('year', year);
-    formData.append('month', month);
-    formData.append('habitNum', habitNum);
-
-    if (habitText !== null)
-        formData.append('name', habitText);
-    if (day !== null)
-        formData.append('day', day);
-
-    fetch(URL, {
-        method: 'PUT',
-        body: formData
-    })
-        .catch(error => {
-            console.error('Error:', error);
-        });
 }
 
 function getHabitMotivationMessage() {
@@ -629,7 +639,7 @@ function loadMotivationalMessage(quote, author) {
 }
 
 function clearAllDotsOnTracker() {
-    for (let i = 1; i < NUM_HABITS + 1; i++)
+    for (let i = 1; i <= NUM_HABITS; i++)
         clearDotsByHabitNum(i);
 }
 
@@ -642,10 +652,6 @@ function clearDotsByHabitNum(habitNum) {
         radius = HABIT_3_RADIUS;
     }
 
-    let month = document.getElementById("month").textContent;
-    let year = document.getElementById("year").textContent;
-    let monthNum = getMonthNum(month) + 1;
-
     for (let i = 1; i < 32; i++) {
         let dotId = i + '_' + radius;
         let dot = document.getElementById(dotId);
@@ -657,28 +663,7 @@ function clearDotsByHabitNum(habitNum) {
     }
 }
 
-function postNewEmptyHabits() {
-    const year = document.getElementById("year").textContent;
-    const month = document.getElementById("month").textContent;
-    const URL = BACKEND_API_URL;
-    const formData = new FormData();
-    formData.append('year', year);
-    formData.append('month', month);
-
-    fetch(URL, {
-        method: 'POST',
-        body: formData
-    })
-        .then(res => {
-            getHabitTrackerDataFromDatabase(year, month);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-}
-
 function setHabitDeleteModalListeners() {
-
     for (let i = 1; i <= NUM_HABITS; i++) {
         let elmId = 'habit' + i + 'BtnDeleteChecked';
         let elm = document.getElementById(elmId);
@@ -687,12 +672,20 @@ function setHabitDeleteModalListeners() {
             deleteHabit(i);
         }, false);
     }
-
 }
 
 function deleteHabit(habitNum) {
+    let radius = HABIT_1_RADIUS;
+    if (habitNum === 2)
+        radius = HABIT_2_RADIUS;
+    if (habitNum === 3)
+        radius = HABIT_3_RADIUS;
     clearDotsByHabitNum(habitNum);
-    updateHabitDetailsToDatabase(habitNum, 'add new' , null);
+    let idSelector = '[id*=_' + radius +']';
+    let habitDotElms = document.querySelectorAll(idSelector);
+    for (let i = 0; i < habitDotElms.length; i++)
+        updateFirebaseDotData(habitDotElms[i]);
+    updateFirebaseHabitName("habit" + habitNum, "add new");
     let habitText = document.getElementById("habit" + habitNum);
     habitText.textContent = 'add new';
     habitText.style.fill = getCurrentColorTheme().color100;
@@ -732,8 +725,6 @@ function setColorThemeHoverEvents() {
     let arrayOfThemes = [null, theme1, theme2, theme3, theme4, theme5, theme6];
 
     for (let i = 1; i <= 6; i++) {
-        let selectorId = "theme" + i + "_selector_area";
-        let backgroundId = "theme" + i + "_background";
         let selector = document.getElementById("theme" + i + "_selector_area");
         let background = document.getElementById("theme" + i + "_background");
 
@@ -774,7 +765,6 @@ function setAddNewHabitColors(color) {
         if (habitText.textContent === "add new")
             habitText.style.fill = color;
     }
-
 }
 
 function setMonthYearColors(monthColor, yearColor) {
