@@ -8,10 +8,10 @@ app.engine('handlebars', engine());
 
 //Sets our app to use the handlebars engine
 app.set('view engine', 'handlebars');
-app.set("views", "./views");
+app.set("views", "./src/views");
 
-app.use(express.static('./public'));
-app.use(express.static('../dist'));
+app.use(express.static('./src/public'));
+app.use(express.static('./dist'));
 
 app.get('/', (req, res) => {
     res.render('home');
