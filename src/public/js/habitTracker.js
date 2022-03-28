@@ -109,7 +109,7 @@ function loadApp() {
     setHabitHoverAndClickEvents();
     setInfoIconProperties();
     setSettingsIconProperties();
-    getHabitMotivationMessage();
+    // getHabitMotivationMessage();
     setInterval(getHabitMotivationMessage, MOTIVATIONAL_DELAY);
     setColorTheme(theme5);
     setColorThemeHoverEvents();
@@ -610,6 +610,7 @@ function setModalTexts() {
     }
 }
 
+/*
 function getHabitMotivationMessage() {
     fetch(MOTIVATIONAL_MESSAGE_URL)
         .then(response => response.json())
@@ -637,6 +638,7 @@ function loadMotivationalMessage(quote, author) {
     let motivationalAuthorElm = document.getElementById("author");
     motivationalAuthorElm.textContent = author;
 }
+*/
 
 function clearAllDotsOnTracker() {
     for (let i = 1; i <= NUM_HABITS; i++)

@@ -1,12 +1,14 @@
 const path = require('path');
-const nodeExternals = require('webpack-node-externals');
+// const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
-  target: 'node',
+  // target: 'node',
+    /*
   externals: [nodeExternals()],
   externalsPresets: {
       node: true
   },
+  */
   // The entry point file described above
   entry: './src/public/js/habitTracker.js',
   // The location of the build folder described above
