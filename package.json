@@ -4,8 +4,9 @@
   "description": "arhuber.dev site",
   "main": "y",
   "scripts": {
+    "bundle": "webpack --config webpack.config.js",
+    "prestart": "npm run bundle",
     "start": "node ./src/index.js",
-    "build": "webpack --mode=development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,10 +27,9 @@
     "handlebars-loader": "^1.7.1",
     "http": "^0.0.1-security",
     "https": "^1.0.0",
-    "path": "^0.12.7"
-  },
-  "devDependencies": {
+    "path": "^0.12.7",
     "webpack": "^5.70.0",
-    "webpack-cli": "^4.9.2"
+    "webpack-cli": "^4.9.2",
+    "webpack-node-externals": "^3.0.0"
   }
 }
