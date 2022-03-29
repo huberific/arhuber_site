@@ -84,8 +84,8 @@ const HABIT_1_RADIUS = 12;
 const HABIT_2_RADIUS = 10;
 const HABIT_3_RADIUS = 8;
 
-const MOTIVATIONAL_MESSAGE_URL = "http://localhost:3001/motivation";
-const MOTIVATIONAL_DELAY = 20 * 1000; // milliseconds
+// const MOTIVATIONAL_MESSAGE_URL = "http://localhost:3001/motivation";
+// const MOTIVATIONAL_DELAY = 20 * 1000; // milliseconds
 
 const MONTHS_ARRAY = ["January", "February", "March", "April", "May", "June", "July",
     "August", "September", "October", "November", "December"];
@@ -110,7 +110,7 @@ function loadApp() {
     setInfoIconProperties();
     setSettingsIconProperties();
     // getHabitMotivationMessage();
-    setInterval(getHabitMotivationMessage, MOTIVATIONAL_DELAY);
+    // setInterval(getHabitMotivationMessage, MOTIVATIONAL_DELAY);
     setColorTheme(theme5);
     setColorThemeHoverEvents();
 }
