@@ -1,7 +1,7 @@
 const express = require('express')
 const { engine } = require('express-handlebars');
 const app = express();
-const port = 3000;
+const port = 8080;
 
 //Sets handlebars configurations (we will go through them later on)
 app.engine('handlebars', engine());
