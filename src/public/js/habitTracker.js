@@ -1,10 +1,9 @@
-import { initializeApp } from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
-import { getDatabase, ref, get, set, update, child, onValue } from 'firebase/database';
-import { firebaseConfig } from "./firebaseConfig";
+import {initializeApp} from 'firebase/app';
+import {child, get, getDatabase, onValue, ref, update} from 'firebase/database';
+import {firebaseConfig} from "./firebaseConfig";
+import {theme1, theme2, theme3, theme4, theme5, theme6} from './colorThemes'
 
 const firebaseApp = initializeApp(firebaseConfig);
-const analytics = getAnalytics(firebaseApp);
 const database = getDatabase(firebaseApp);
 let databaseData = {};
 
@@ -20,72 +19,9 @@ const CENTER_Y = FRAME_HEIGHT / 2;
 
 const NUM_HABITS = 3;
 
-const theme1 = {
-    color50: "#FFF8E1",
-    color100: "#FFECB3",
-    color200: "#FFD54F",
-    color400: "#FFCA28",
-    color600: "#FFB300",
-    color800: "#FF8F00",
-    color900: "#FF6F00"
-};
-
-const theme2 = {
-    color50: "#FCE4EC",
-    color100: "#F8BBD0",
-    color200: "#F06292",
-    color400: "#EC407A",
-    color600: "#D81B60",
-    color800: "#AD1457",
-    color900: "#880E4F"
-};
-
-const theme3 = {
-    color50: "#F3E5F5",
-    color100: "#E1BEE7",
-    color200: "#BA68C8",
-    color400: "#AB47BC",
-    color600: "#8E24AA",
-    color800: "#6A1B9A",
-    color900: "#4A148C"
-};
-
-const theme4 = {
-    color50: "#E3F2FD",
-    color100: "#BBDEFB",
-    color200: "#64B5F6",
-    color400: "#42A5F5",
-    color600: "#1E88E5",
-    color800: "#1565C0",
-    color900: "#0D47A1"
-};
-
-const theme5 = {
-    color50: "#E0F2F1",
-    color100: "#B2EBF2",
-    color200: "#4DD0E1",
-    color400: "#26C6DA",
-    color600: "#00ACC1",
-    color800: "#00838F",
-    color900: "#006064"
-};
-
-const theme6 = {
-    color50: "#F1F8E9",
-    color100: "#DCEDC8",
-    color200: "#AED581",
-    color400: "#9CCC65",
-    color600: "#7CB342",
-    color800: "#558B2F",
-    color900: "#33691E"
-};
-
 const HABIT_1_RADIUS = 12;
 const HABIT_2_RADIUS = 10;
 const HABIT_3_RADIUS = 8;
-
-// const MOTIVATIONAL_MESSAGE_URL = "http://localhost:3001/motivation";
-// const MOTIVATIONAL_DELAY = 20 * 1000; // milliseconds
 
 const MONTHS_ARRAY = ["January", "February", "March", "April", "May", "June", "July",
     "August", "September", "October", "November", "December"];
@@ -109,8 +45,6 @@ function loadApp() {
     setHabitHoverAndClickEvents();
     setInfoIconProperties();
     setSettingsIconProperties();
-    // getHabitMotivationMessage();
-    // setInterval(getHabitMotivationMessage, MOTIVATIONAL_DELAY);
     setColorTheme(theme5);
     setColorThemeHoverEvents();
 }
@@ -135,15 +69,6 @@ function getAllFirebaseData() {
         .catch((error) => {
             console.error(error);
         });
-}
-
-function writeUserData(userId, name, email, imageUrl) {
-    const db = getDatabase();
-    set(ref(db, 'users/' + userId), {
-        username: name,
-        email: email,
-        profile_picture : imageUrl
-    });
 }
 
 function updateFirebaseHabitName(habit, habitName) {
@@ -174,14 +99,6 @@ function updateFirebaseDotData(dotElm) {
         return update(ref(database), updates);
     }
 }
-
-function writeHabitNameToFirebase(habitNum, habitName) {
-    console.log(path);
-    set(ref(database, path), {
-        name: habitName,
-    });
-}
-
 
 function setDateOnTracker(year, month) {
     let monthText = document.getElementById("month");
@@ -221,7 +138,7 @@ function setInfoIconProperties() {
     }, false);
 
     infoIconSelectorArea.addEventListener("click", () => {
-        var myModal = new bootstrap.Modal(document.getElementById("infoModal"), {
+        let myModal = new bootstrap.Modal(document.getElementById("infoModal"), {
             keyboard: false
         });
         myModal.show();
@@ -246,7 +163,7 @@ function setSettingsIconProperties() {
     }, false);
 
     settingsIconSelectorArea.addEventListener("click", () => {
-        var myModal = new bootstrap.Modal(document.getElementById("settingsModal"), {
+        let myModal = new bootstrap.Modal(document.getElementById("settingsModal"), {
             keyboard: false
         });
         myModal.show();
@@ -298,7 +215,7 @@ function setDateSelectorProperties() {
     }, false);
 
     dateSelectorArea.addEventListener("click", () => {
-        var myModal = new bootstrap.Modal(document.getElementById("dateModal"), {
+        let myModal = new bootstrap.Modal(document.getElementById("dateModal"), {
             keyboard: false
         });
         myModal.show();
@@ -503,7 +420,7 @@ function setHabitHoverAndClickEvents() {
         }, false);
 
         habitSelectorArea.addEventListener("click", () => {
-            var myModal = new bootstrap.Modal(document.getElementById("habit" + i + "Modal"), {
+            let myModal = new bootstrap.Modal(document.getElementById("habit" + i + "Modal"), {
                 keyboard: false
             });
             myModal.show();
@@ -610,36 +527,6 @@ function setModalTexts() {
     }
 }
 
-/*
-function getHabitMotivationMessage() {
-    fetch(MOTIVATIONAL_MESSAGE_URL)
-        .then(response => response.json())
-        .then(data => {
-            let quote = undefined;
-            let author = undefined;
-            try {
-                quote = '"' + data[0].quote + '"';
-            } catch {
-                quote = '';
-            }
-            try {
-                author = data[0].author;
-            } catch {
-                author = '';
-            }
-            loadMotivationalMessage(quote, author);
-        });
-}
-
-function loadMotivationalMessage(quote, author) {
-    let motivationalQuoteElm = document.getElementById("quote");
-    motivationalQuoteElm.textContent = quote;
-
-    let motivationalAuthorElm = document.getElementById("author");
-    motivationalAuthorElm.textContent = author;
-}
-*/
-
 function clearAllDotsOnTracker() {
     for (let i = 1; i <= NUM_HABITS; i++)
         clearDotsByHabitNum(i);
@@ -709,7 +596,7 @@ function setColorTheme(theme) {
 function getCurrentColorTheme() {
     let style = getComputedStyle(document.body);
 
-    let colorTheme = {
+    return {
         defaultText: style.getPropertyValue('--default-text-color'),
         color50: style.getPropertyValue('--theme-color-50'),
         color100: style.getPropertyValue('--theme-color-100'),
@@ -718,9 +605,7 @@ function getCurrentColorTheme() {
         color600: style.getPropertyValue('--theme-color-600'),
         color800: style.getPropertyValue('--theme-color-800'),
         color900: style.getPropertyValue('--theme-color-900')
-    }
-
-    return colorTheme;
+    };
 }
 
 function setColorThemeHoverEvents() {
