@@ -121,6 +121,7 @@ tspan {
 }
 
 .message {
+  fill-opacity: 0;
   font-family: "Do Hyeon", serif;
   font-size: min(1.8vh, 1.8vw);
   word-break: normal;
@@ -185,13 +186,13 @@ tspan {
 .dayText {
   fill-opacity: 0;
   text-anchor: middle;
-  /*alignment-baseline: middle;*/
   dominant-baseline: middle;
   animation: fadeIn 2s ease forwards;
   animation-delay: calc(var(--day-text-delay) + (var(--order) * 50ms));
 }
 
 .fadeInEffects {
+  opacity: 0;
   fill-opacity: 0;
   animation: fadeIn 2s ease forwards;
   animation-delay: var(--fade-in-effects-delay);
@@ -216,9 +217,11 @@ tspan {
 
 @keyframes fadeIn {
   from {
+    opacity: 0;
     fill-opacity: 0;
   }
   to {
+    opacity: 1;
     fill-opacity: 1;
   }
 }
