@@ -5,18 +5,15 @@
   --hash-color: #424242;
   --tracker-path-color: #212121;
   --default-text-color: #212121;
-  --add-new-text-color: #BDBDBD;
-  --habit1-dot-color: gold;
-  --habit2-dot-color: orange;
-  --habit3-dot-color: peru;
+  --add-new-text-color: #B2EBF2;
 
-  --theme-color-50: #FFF8E1;
-  --theme-color-100: #FFECB3;
-  --theme-color-200: #FFD54F;
-  --theme-color-400: #FFCA28;
-  --theme-color-600: #FFB300;
-  --theme-color-800: #FF8F00;
-  --theme-color-900: #FF6F00;
+  --theme-color-50: #E0F2F1;
+  --theme-color-100: #B2EBF2;
+  --theme-color-200: #4DD0E1;
+  --theme-color-400: #26C6DA;
+  --theme-color-600: #00ACC1;
+  --theme-color-800: #00838F;
+  --theme-color-900: #006064;
 
   --hash-mark-delay: 3.5s;
   --day-text-delay: 3.5s;
@@ -127,10 +124,6 @@ tspan {
   font-family: "Do Hyeon", serif;
   font-size: min(1.8vh, 1.8vw);
   word-break: normal;
-}
-
-.container.scaling-svg-container {
-  /*background: yellow;*/
 }
 
 .scale-tracker-container{
