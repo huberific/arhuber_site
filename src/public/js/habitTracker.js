@@ -2,7 +2,6 @@ import {initializeApp} from 'firebase/app';
 import {child, get, getDatabase, onValue, ref, update} from 'firebase/database';
 import {firebaseConfig} from "./firebaseConfig";
 import {theme1, theme2, theme3, theme4, theme5, theme6} from './colorThemes'
-import {motivationalQuotes} from "./motivationalQuotes";
 
 const firebaseApp = initializeApp(firebaseConfig);
 const database = getDatabase(firebaseApp);
@@ -27,8 +26,6 @@ const HABIT_3_RADIUS = 8;
 const MONTHS_ARRAY = ["January", "February", "March", "April", "May", "June", "July",
     "August", "September", "October", "November", "December"];
 
-const MOTIVATIONAL_DELAY = 20 * 1000; // milliseconds
-
 // global variable to change animations for after firstAppInialization:
 let firstAppInitialization = true;
 
@@ -48,7 +45,6 @@ function loadApp() {
     setHabitHoverAndClickEvents();
     setInfoIconProperties();
     setSettingsIconProperties();
-    setInterval(setMotivationalMessage, MOTIVATIONAL_DELAY);
     setColorTheme(theme5);
     setColorThemeHoverEvents();
 }
@@ -661,23 +657,4 @@ function setAddNewHabitColors(color) {
 function setMonthYearColors(monthColor, yearColor) {
     document.getElementById("month").style.fill = monthColor;
     document.getElementById("year").style.fill = yearColor;
-}
-
-function setMotivationalMessage() {
-    let randNum = Math.floor(Math.random() * 100);
-    try {
-        let quote = motivationalQuotes[randNum]["quote"];
-        let author = motivationalQuotes[randNum]["author"];
-        loadMotivationalMessage(quote, author);
-    } catch (e) {
-        console.error(e);
-    }
-}
-
-function loadMotivationalMessage(quote, author) {
-    let motivationalQuoteElm = document.getElementById("quote");
-    motivationalQuoteElm.textContent = quote;
-
-    let motivationalAuthorElm = document.getElementById("author");
-    motivationalAuthorElm.textContent = author;
 }
