@@ -130,14 +130,14 @@ function setInfoIconProperties() {
     let infoIconDark = document.getElementById("info_icon_dark");
 
     infoIconSelectorArea.addEventListener("mousemove", () => {
-        infoIconLight.style.opacity = 0;
-        infoIconDark.style.opacity = 1;
+        infoIconLight.style.visibility = "hidden";
+        infoIconDark.style.visibility = "visible";
         document.body.style.cursor = 'pointer';
     }, false);
 
     infoIconSelectorArea.addEventListener("mouseleave", () => {
-        infoIconDark.style.opacity = 0;
-        infoIconLight.style.opacity = 1;
+        infoIconDark.style.visibility = "hidden";
+        infoIconLight.style.visibility = "visible";
         document.body.style.cursor = 'default';
     }, false);
 
@@ -155,14 +155,14 @@ function setSettingsIconProperties() {
     let settingsIconDark = document.getElementById("settings_icon_dark");
 
     settingsIconSelectorArea.addEventListener("mousemove", () => {
-        settingsIconLight.style.opacity = 0;
-        settingsIconDark.style.opacity = 1;
+        settingsIconLight.style.visibility = "hidden";
+        settingsIconDark.style.visibility = "visible";
         document.body.style.cursor = 'pointer';
     }, false);
 
     settingsIconSelectorArea.addEventListener("mouseleave", () => {
-        settingsIconDark.style.opacity = 0;
-        settingsIconLight.style.opacity = 1;
+        settingsIconDark.style.visibility = "hidden";
+        settingsIconLight.style.visibility = "visible";
         document.body.style.cursor = 'default';
     }, false);
 

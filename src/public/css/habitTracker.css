@@ -24,9 +24,10 @@
 .btn {
   outline: none;
   border: none;
+  box-shadow: none !important;
 }
 
-input:focus, input:active {
+input:focus, input:active, select:focus, select:active {
   border-color: var(--theme-color-600) !important;
   box-shadow: none !important;
   outline: none !important;
@@ -36,16 +37,20 @@ input:focus, input:active {
   background-color: var(--theme-color-800) !important;
 }
 
-.btn-primary:hover {
-  background-color: var(--theme-color-900) !important;
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover {
+    background-color: var(--theme-color-900) !important;
+  }
 }
 
 .btn-warning,.btn-warning:active, .btn-warning:visited {
   background-color: var(--theme-color-200) !important;
 }
 
-.btn-warning:hover {
-  background-color: var(--theme-color-400) !important;
+@media (hover: hover) and (pointer: fine) {
+  .btn-warning:hover {
+    background-color: var(--theme-color-400) !important;
+  }
 }
 
 .habit1Color {
@@ -95,11 +100,11 @@ h6 {
 }
 
 .icon_light {
-  opacity: 1;
+  fill-opacity: 0;
 }
 
 .icon_dark {
-  opacity: 0;
+  visibility: hidden;
   fill: var(--theme-color-600);
 }
 
@@ -121,9 +126,8 @@ tspan {
 }
 
 .message {
-  fill-opacity: 0;
   font-family: "Do Hyeon", serif;
-  font-size: min(1.8vh, 1.8vw);
+  font-size: min(1.9vh, 1.9vw);
   word-break: normal;
 }
 
@@ -201,6 +205,7 @@ tspan {
 #dayPulse {
   animation: dayPulse 2s infinite;
   animation-delay: calc(var(--day-pulse-delay) + (var(--order) * 50ms));
+  fill: var(--theme-color-800);
 }
 
 @keyframes dayPulse {
@@ -243,15 +248,22 @@ tspan {
   animation-delay: var(--fade-in-effects-delay);
 }
 
-.dot:hover {
-  animation: slightFadeIn 0.5s ease forwards;
+@media (hover: hover) and (pointer: fine) {
+  .dot:hover {
+    animation: slightFadeIn 0.5s ease forwards;
+  }
 }
 
 @keyframes slightFadeIn {
   0% {
-    fillopacity: 0;
+    fill-opacity: 0;
   }
   100% {
     fill-opacity: 0.35;
   }
+}
+
+p {
+  text-align: justify;
+  text-justify: inter-word;
 }
