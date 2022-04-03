@@ -17,6 +17,10 @@ app.get('/', (req, res) => {
     res.render('home');
 });
 
+app.get('/about', (req, res) => {
+    res.render('about');
+});
+
 app.get('/projects/habitTracker', (req, res) => {
     res.render('habitTracker');
 });
