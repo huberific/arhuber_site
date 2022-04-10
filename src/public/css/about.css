@@ -1,0 +1,23 @@
+li {
+    text-align: justify;
+    text-justify: inter-word;
+}
+body,h1,h2,h3,h4,h5,h6 {
+    font-family: "Roboto", sans-serif;
+}
+
+a:hover {
+   color: teal;
+}
+
+a {
+    text-decoration: none;
+}
+
+.noBullet {
+    list-style-type: none;
+}
+
+.tealColor {
+    color: teal;
+}

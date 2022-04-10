@@ -14,7 +14,8 @@ app.use(express.static('./src/public'));
 app.use(express.static('./dist'));
 
 app.get('/', (req, res) => {
-    res.render('home');
+    // res.render('home');
+    res.render('about');
 });
 
 app.get('/about', (req, res) => {
