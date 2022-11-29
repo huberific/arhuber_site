@@ -10,11 +10,15 @@ module.exports = {
   },
   */
   // The entry point file described above
-  entry: './src/public/js/habitTracker.js',
+  entry: {
+    habitTracker: './src/public/js/habitTracker.js',
+    brainWebGL: './src/public/js/brainWebGL.js'
+  },
+
   // The location of the build folder described above
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'habitTracker.bundle.js'
+    filename: '[name].bundle.js'
   },
     mode: 'production'
   // Optional and for development only. This provides the ability to

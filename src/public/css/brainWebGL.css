@@ -1,0 +1,19 @@
+h3 {
+    padding-top: 10px;
+}
+
+h3, p {
+    padding-left: 5px;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+
+    background: #11e8bb; /* Old browsers */
+    background: -moz-linear-gradient(top,  #5db4ff 0%, #ffd852 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  #5db4ff 0%, #ffd852 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  #5db4ff 0%, #ffd852 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5db4ff', endColorstr='#ffd852',GradientType=0 ); /* IE6-9 */
+    overflow: hidden;
+}

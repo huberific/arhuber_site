@@ -26,6 +26,10 @@ app.get('/projects/habitTracker', (req, res) => {
     res.render('habitTracker');
 });
 
+app.get('/projects/brainWebGL', (req, res) => {
+    res.render('brainWebGL');
+});
+
 app.use(function(req, res) {
     res.status(404);
     res.render('404');
