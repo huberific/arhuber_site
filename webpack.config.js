@@ -11,8 +11,9 @@ module.exports = {
   */
   // The entry point file described above
   entry: {
+    brainWebGL: './src/public/js/brainWebGL.js',
     habitTracker: './src/public/js/habitTracker.js',
-    brainWebGL: './src/public/js/brainWebGL.js'
+    home: './src/public/js/home.js',
   },
 
   // The location of the build folder described above
